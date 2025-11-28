@@ -47,3 +47,4 @@ apne sensitive information iske under mai rakhunga.
  mongo Db ke under ek method hota hai findOne()iske trough maine email find kraya hai.
  bcryptjs ke under ek method hota hai hash() jisse maine password ko hash krbaya hai.
  login krne ke liye login function bnaya hai.
+isme ek problem hai ki login hogi jsb userData nhi hoga to agar userData hota hai to Logout ka dashboard pe hoga.
