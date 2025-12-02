@@ -42,7 +42,7 @@ function Nav() {
 
         {!userData && <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer 'onClick={()=>setShow(prev=>!prev)}/>}
         {userData && <div className='w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer'onClick={()=>setShow(prev=>!prev)}>
-          {userData?.name.slice(0,1).toUpperCase()}
+          {userData?.name?.slice(0,1).toUpperCase()}
         </div>}
 
         {userData?.role  ==="educator" && <div className='px-[20px] py-[10px] border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'>Dashboard</div>}
@@ -58,25 +58,25 @@ function Nav() {
         </div>}
 
        </div>
-         <RxHamburgerMenu  className='w-[35px] h-[35px] lg:hidden fill-black cursor-pointer'onClick={() => setShowHam(prev => !prev)}/>
+         <RxHamburgerMenu  className='w-[35px] h-[35px] lg:hidden text-white cursor-pointer'onClick={() => setShowHam(prev => !prev)}/>
        <div  className={`fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#000000d6] flex items-center justify-center flex-col gap-5 z-10 lg:hidden transition duration-600 ${showHam ? "translate-x-0" : "-translate-x-full"}`}>
 
           <GiSplitCross  className='w-[35px] h-[35px] fill-white absolute top-5 right-[4%]'onClick={()=>setShowHam(prev=>!prev)} />
             {!userData && <IoPersonCircle className='w-[50px] h-[50px] fill-black cursor-pointer '/>}
         {userData && <div className='w-[50px] h-[50px] rounded-full text-white flex items-center justify-center text-[20px] border-2 bg-black border-white cursor-pointer'>
-          {userData?.name.slice(0,1).toUpperCase()}
+          {userData?.name?.slice(0,1).toUpperCase()}
         </div>}
 
-        <div className='w-[60px] border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'onClick={()=>navigate("/profile")}>My Profile</div>
+          <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer' onClick={()=>navigate("/profile")}>My Profile</div>
 
-        <div className='w-[60px] border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'>My Courses</div>
+          <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer'>My Courses</div>
 
+       {userData?.role ==="educator" && (
+       <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer'>
+         Dashboard</div>
+       )}
 
-        {userData?.role ==="educator" && <div className='w-[60px]  border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'>Dashboard</div>}
- 
-        {!userData ?<span className='w-[60px]  border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'onClick={()=>navigate("/login")}>Login</span>:
-        <span className='w-[60px]  border-2 lg:border-white border-black lg:text-white bg-[black] rounded-[10px] text-[18px] font-light  cursor-pointer'onClick={handleLogOut}>LogOut</span>}
-
+      {!userData ? (<span className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer' onClick={()=>navigate("/login")}>Login</span>): (<span className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer' onClick={handleLogOut}>LogOut</span>)}
          </div>
       </div>
     </div>
