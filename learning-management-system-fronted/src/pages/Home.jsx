@@ -5,6 +5,7 @@ import { SiViaplay } from "react-icons/si";
 import ai from "../assets/ai.png"
 import ai1 from "../assets/SearchAi.png"
 import Logos from '../component/logos';
+import ExploreCourses from '../component/ExpoloreCourses';
 
 
 function Home() {
@@ -24,6 +25,7 @@ function Home() {
       
       </div>
           <Logos/>
+          <ExploreCourses/>
     </div>
   )
 }
