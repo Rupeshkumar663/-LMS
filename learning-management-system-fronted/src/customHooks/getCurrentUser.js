@@ -14,7 +14,7 @@ const useCurrentUser = () => {
           withCredentials: true  
         })
         
-        dispatch(setUserData(result.data.user)) // <-- sirf user send karna
+        dispatch(setUserData(result.data.user)) 
 
       } catch (error) {
         console.log("User not logged in", error.response?.data);
