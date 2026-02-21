@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { serverUrl } from '../App'
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaPlayCircle } from "react-icons/fa";
 function ViewLecture() {
   const {courseId}=useParams()
   const {courseData}=useSelector(state=>state.course)
   const {useData}=useSelector(state=>state.user)
   const selectedCourse=courseData?.find((course)=>course._id===courseId)
   const [creatorData, setCreatorData] = useState(null);
-  const [selectedLecture,setSelectedCourse]=useState(selectedCourse?.lectures?.[0]|| null)
+  const [selectedLecture,setSelectedLecture ]=useState(selectedCourse?.lectures?.[0]|| null)
   const navigate=useNavigate()
 
 
@@ -43,9 +44,47 @@ function ViewLecture() {
             <span>Category{selectedCourse?.category}</span>
             <span>Level:{selectedCourse?.level}</span>
            </div>
-
-
          </div>
+
+         {/* Video player */}
+
+         <div className='apect-video  bg-black rounded-xl overflow-hidden mb-4 border border-gray-300'>
+          {selectedLecture?.videoUrl ? <video className='-w-full h-full object-cover' src={selectedLecture?.videoUrl } controls/>:
+          <div className='flex items-center justify-center h-full text-white'>select a lecture to start watching</div>}
+         </div>
+         <div className='mt-2'>
+          <h2 className='text-xl font-semibold text-gray-800 '>{selectedLecture?.lectureTitle}</h2>
+         </div>
+        </div>
+
+        {/*right or bottom */}
+
+        <div className='w-full md:w-1/3 bg-white rounded-2xl shadow-md p-6 border border-gray-200 h-fit'>
+        <h2 className='text-xl font-blod mb-4 text-gray-800'>All Lectures</h2>
+        <div className='flex flex-col gap-3 mb-6'>
+
+          {selectedLecture?.lectures?.length>0?
+          (selectedCourse?.lectures?.map((lecture,index)=>(
+            <button key={index} onClick={()=>setSelectedLecture(lecture)}
+            className={`flex items-center justify-between p-3 rounded-lg border transition text-left ${selectedLecture?._id===lecture._id? 'bg-gray-200 border-gray-500':'hover:bg-gray-50 border-gray-300'}`}
+            ><h2 className='text-sm font-semibold text-gray-800'>{lecture.lectureTitle}</h2>
+            <FaPlayCircle className='text-lg text-black'/>
+            </button>
+           )))
+          :(<p className='text-gray-500 '>No lectures available.</p>)}
+         </div >
+        {/*Educator information */}
+        {creatorData && <div className='mt-4 border-t pt-4'>
+           <h3 className='text-md font-semibold text-gray-700 mb-3'>Educator</h3>
+           
+           <div className='flex items-center gap-4'><img src={creatorData?.photoUrl} alt="" className='w-14 h-14 rounded-full object-cover' /></div>
+
+           <div>
+            <h2 className='text-base font-medium text-gray-800'>{creatorData?.name}</h2>
+            <p className='text-sm text-gray-600'>{creatorData?.description}</p>
+            <p className='text-sm text-gray-600'>{creatorData?.email}</p>
+           </div>
+         </div>}
         </div>
     </div>
   )

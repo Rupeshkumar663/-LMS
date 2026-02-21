@@ -133,6 +133,9 @@ function App() {
 
          <Route path="/viewlecture/:courseId" element={ userData?.role==="educator"?(<ViewLectures/>):( <Navigate to="/signup" />)}/>
  
+         <Route path="/viewlecture/:courseId" element={ userData?(<ViewLectures/>):( <Navigate to="/signup" />)}/>
+
+           <Route path="/mycourses/:courseId" element={ userData?(<MyEnrolledCourses/>):( <Navigate to="/signup" />)}/>
 
       </Routes>
     </>

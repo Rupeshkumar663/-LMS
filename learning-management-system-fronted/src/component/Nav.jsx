@@ -55,7 +55,7 @@ function Nav() {
 
          <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2pxl hover:bg-gray-600' onClick={()=>navigate("/profile")}>My Profile</span>
 
-         <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2pxl hover:bg-gray-600'>My courses</span>
+         <span className='bg-[black] text-white px-[30px] py-[10px] rounded-2pxl hover:bg-gray-600' onClick={(()=>navigate("/mycourses"))}>My courses</span>
         </div>}
 
        </div>
@@ -70,7 +70,7 @@ function Nav() {
 
           <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer' onClick={()=>navigate("/profile")}>My Profile</div>
 
-          <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer'>My Courses</div>
+          <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer'onClick={(()=>navigate("/mycourses"))}>My Courses</div>
 
        {userData?.role ==="educator" && (
        <div className='w-[150px] text-center py-[12px] border text-white bg-black rounded-lg text-[18px] cursor-pointer'onClick={()=>navigate("/dashboard")}>

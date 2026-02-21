@@ -25,6 +25,9 @@ function ViewCourse() {
   const [creatorData, setCreatorData] = useState(null);
   const [creatorCourses, setcreatorCourses] = useState(null);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [rating,setRating]=useState(0)
+  const [comment,setComment]=useState("")
+  
 
   useEffect(() => {
     const handleCreator = async () => {
