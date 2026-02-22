@@ -22,17 +22,19 @@ import CreateLecture from "./pages/CreateLecture";
 import EditLecture from "./pages/Educator/EditLecture";
 
 // hooks
-import getCurrentUser from "./customHooks/getCurrentUser";
-import getCreatorCourse from "./customHooks/getCreatorCourse";
-import getPublishedCourse from "./customHooks/getPublishedCourse";
+import {useCurrentUser as getCurrentUser} from "./customHooks/getCurrentUser";
+import {useCreatorCourse as getCreatorCourse} from "./customHooks/getCreatorCourse";
+import {useGetPublishedCourse as getPublishedCourse} from "./customHooks/getPublishedCourse";
+import {useGetAllReviews as getAllReviews} from "./customHooks/getAllReviews";
 import ScrollToTop from "./component/ScrollToTop";
-
+import SearchwithAi from "./pages/SearchwithAi";
 export const serverUrl = "http://localhost:8000";
 
 function App() {
   getCurrentUser();
   getCreatorCourse();
   getPublishedCourse();
+  getAllReviews();
 
 
   const { userData } = useSelector((state) => state.user);
@@ -136,6 +138,7 @@ function App() {
          <Route path="/viewlecture/:courseId" element={ userData?(<ViewLectures/>):( <Navigate to="/signup" />)}/>
 
            <Route path="/mycourses/:courseId" element={ userData?(<MyEnrolledCourses/>):( <Navigate to="/signup" />)}/>
+            <Route path='/search' element={ userData?(<SearchwithAi/>):( <Navigate to="/signup" />)}/>
 
       </Routes>
     </>

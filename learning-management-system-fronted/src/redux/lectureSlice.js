@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const lectureSlice = createSlice({
-  name: "course",
+  name: "lecture",
   initialState: {
     
     lectureData:[]

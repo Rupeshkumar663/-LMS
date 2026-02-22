@@ -1,30 +1,30 @@
 import {useEffect} from "react";
 import axios from "axios";
-import {serverUrl} from "../App";
 import {useDispatch} from "react-redux";
-import {setCourseData} from "../redux/courseSlice";
+import {serverUrl} from "../App";
+import {setreviewData} from "../redux/reviewSlice";
 
-const useGetPublishedCourse=()=>{
+const useGetAllReviews=()=>{
 
   const dispatch=useDispatch();
 
   useEffect(()=>{
-    const getCourseData=async()=>{
+    const allReviews=async()=>{
       try{
         const result=await axios.get(
-          serverUrl+"/api/course/getpublished",
+          serverUrl+"/api/review/getreview",
           {withCredentials:true}
         );
-        dispatch(setCourseData(result.data));
+        dispatch(setreviewData(result.data));
         console.log(result.data);
       }catch(error){
         console.log(error);
       }
     };
 
-    getCourseData();
+    allReviews();
   },[dispatch]);
 
 };
 
-export default useGetPublishedCourse;
+export default useGetAllReviews;

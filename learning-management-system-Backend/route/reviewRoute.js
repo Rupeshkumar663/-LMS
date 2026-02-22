@@ -5,3 +5,5 @@ const reviewRouter=express.Router()
 
 reviewRouter.post("/createreview",isAuth,createReview)
 reviewRouter.get("/getreview",getReviews)
+
+export default reviewRouter
