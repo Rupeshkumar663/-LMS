@@ -12,12 +12,13 @@ function SearchwithAi() {
     const navigate=useNavigate()
     const [input,setInput]=useState("")
     const [recommendations,setRecommendations]=useState([])
+    const [listening,setListening]=useState(false)
     
     function speak(message){
         let utterance=new SpeechSynthesisUtterance(message)
         window.speechSynthesis.speak(utterance)
     }
-    const SpeechRecognition=window.SpeechRecognition || window.webkitSpeecRecognition
+    const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition=new SpeechRecognition()
     if(!recognition){
         toast.error("Speech recognition not supported")
@@ -26,8 +27,9 @@ function SearchwithAi() {
     const handleSearch=async()=>{
         if(!recognition)
              return ;
+        setListening(true);
         recognition.start()
-        start.play()
+        startSound.play()
         recognition.onresult=async(e)=>{
            const transcript=e.results[0][0].transcript.trim()
            setInput(transcript)
@@ -40,6 +42,7 @@ function SearchwithAi() {
          const result=await axios.post(serverUrl+"/course/search",{input:query},{withCredentials:true})
          console.log(result.data)
          setRecommendations(result.data)
+         setListening(false);
          if(result.data.length>0){
             speak("These are the top courses I found for you")
          }
@@ -48,6 +51,7 @@ function SearchwithAi() {
          }
        } catch(error){
           console.log(error)
+          setListening(false);
        }
     }
   return (
@@ -69,10 +73,22 @@ function SearchwithAi() {
 
         </div>
          {recommendations.length>0?(
-            <div></div>
+            <div className='w-full max-w-6xl mt-12 px-2 sm:px-4'>
+                <h1 className='text-xl sm:text-2xl font-semibold mb-6 text-white text-center'>AI Search Results</h1>
 
-         ):(
-            
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8'>
+                  {
+                     recommendations?.map((course,index)=>(
+                        <div key={index} className='bg-white text-black p-5 rounded-2xl shadow-md hover:shadow-indigo-500/30  transition-all duration-200 border border-gray-200 cursor-pointer hover:bg-gray-200' onClick={()=>navigate(`viewcourse/${course._id}`)}>
+                           <h2 className='text-lg font-bold sm:text-xl'>{course.title}</h2>
+                           <p className='text-sm text-gray-600 mt-1'>{course.category}</p>
+                        </div>
+                     ))
+                  }
+                </div>
+            </div>
+
+         ):( listening ? <h1 className='text-center text-xl sm:text-2xl mt-10 text-gray-400'>Listening...</h1> : <h1 className='text-center text-xl sm:text-2xl mt-10 text-gray-400'>No Courses Found Yet</h1>
          )}
     </div>
   )
